@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/monsterName"
         android:layout_width="406dp"
         android:layout_height="55dp"
         android:layout_marginStart="16dp"

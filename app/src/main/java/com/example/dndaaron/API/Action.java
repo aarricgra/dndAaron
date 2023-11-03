@@ -12,6 +12,14 @@ public class Action {
     public Action() {
     }
 
+    @Override
+    public String toString() {
+        return "Action{" +
+                "name='" + name + '\'' +
+                ", desc='" + desc + '\'' +
+                '}';
+    }
+
     public String getName() {
         return name;
     }

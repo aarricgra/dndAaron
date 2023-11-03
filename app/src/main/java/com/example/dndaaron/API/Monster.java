@@ -7,10 +7,9 @@ public class Monster {
     String size;
     int ac;
     int hp;
-    int speed;
     String img;
 
-    int con,str,dex,inte,wis,chari;
+    int con,str,dex,inte,wis,chari,challenge_rating;
 
     ArrayList<Action> actions;
     ArrayList<SpecialAbility> specialAbilities;
@@ -18,12 +17,11 @@ public class Monster {
     public Monster() {
     }
 
-    public Monster(String name, String size, int ac, int hp, int speed, String img, int con, int str, int dex, int inte, int wis, int chari, ArrayList<Action> actions, ArrayList<SpecialAbility> specialAbilities) {
+    public Monster(String name, String size, int ac, int hp, int speed, String img, int con, int str, int dex, int inte, int wis, int chari,int challenge_rating, ArrayList<Action> actions, ArrayList<SpecialAbility> specialAbilities) {
         this.name = name;
         this.size = size;
         this.ac = ac;
         this.hp = hp;
-        this.speed = speed;
         this.img = img;
         this.con = con;
         this.str = str;
@@ -33,6 +31,7 @@ public class Monster {
         this.chari = chari;
         this.actions = actions;
         this.specialAbilities = specialAbilities;
+        this.challenge_rating= challenge_rating;
     }
 
     public String getName() {
@@ -67,13 +66,6 @@ public class Monster {
         this.hp = hp;
     }
 
-    public int getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
 
     public String getImg() {
         return img;
@@ -147,6 +139,14 @@ public class Monster {
         this.chari = chari;
     }
 
+    public int getChallenge_rating() {
+        return challenge_rating;
+    }
+
+    public void setChallenge_rating(int challenge_rating) {
+        this.challenge_rating = challenge_rating;
+    }
+
     @Override
     public String toString() {
         return "Monster{" +
@@ -154,7 +154,6 @@ public class Monster {
                 ", size='" + size + '\'' +
                 ", ac=" + ac +
                 ", hp=" + hp +
-                ", speed=" + speed +
                 ", img='" + img + '\'' +
                 ", con=" + con +
                 ", str=" + str +
@@ -162,6 +161,7 @@ public class Monster {
                 ", inte=" + inte +
                 ", wis=" + wis +
                 ", chari=" + chari +
+                ", challenge_rating=" + challenge_rating +
                 ", actions=" + actions +
                 ", specialAbilities=" + specialAbilities +
                 '}';

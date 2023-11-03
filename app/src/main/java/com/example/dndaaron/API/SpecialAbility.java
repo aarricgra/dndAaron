@@ -27,4 +27,12 @@ public class SpecialAbility {
     public void setDesc(String desc) {
         this.desc = desc;
     }
+
+    @Override
+    public String toString() {
+        return "SpecialAbility{" +
+                "name='" + name + '\'' +
+                ", desc='" + desc + '\'' +
+                '}';
+    }
 }

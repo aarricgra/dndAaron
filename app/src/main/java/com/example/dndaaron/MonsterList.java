@@ -1,6 +1,8 @@
 package com.example.dndaaron;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +23,8 @@ import java.util.concurrent.Executors;
 public class MonsterList extends Fragment {
 
     private MonsterListBinding binding;
-
+    private ArrayList<Monster> monsters;
+    private MonsterAdapter adapter;
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -39,15 +42,13 @@ public class MonsterList extends Fragment {
         ExecutorService executor = Executors.newSingleThreadExecutor();
 
         executor.execute(() -> {
-            Log.d("aaaaa","Hola");
-            DndAPI dndAPI = new DndAPI();
-            ArrayList<Monster> monsters = dndAPI.getMonsters();
-            for (Monster monster:monsters) {
-                Log.d("aaaaa",monster.toString());
-            }
+            DndAPI api = new DndAPI();
+            monsters = api.getMonsters();
+            adapter=new MonsterAdapter(this.getContext(),R.layout.monster_row,monsters);
         });
 
 
+        binding.list.setAdapter(adapter);
     }
 
     @Override

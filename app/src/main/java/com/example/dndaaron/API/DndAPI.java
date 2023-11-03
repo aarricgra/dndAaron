@@ -1,6 +1,7 @@
 package com.example.dndaaron.API;
 
 import android.net.Uri;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,31 +16,35 @@ public class DndAPI {
     public ArrayList<Monster> getMonsters() {
         Uri builtUri = Uri.parse(BASE_URL)
                 .buildUpon()
-                .appendPath("api/monsters")
+                .appendPath("api")
+                .appendPath("monsters")
                 .build();
         String url = builtUri.toString();
-
         return doCall(url);
     }
 
     Monster getMonstersInfo(String link) {
+        String[] parts = link.split("/");
         Uri builtUri = Uri.parse(BASE_URL)
                 .buildUpon()
-                .appendPath(link)
+                .appendPath(parts[1])
+                .appendPath(parts[2])
+                .appendPath(parts[3])
                 .build();
         String url = builtUri.toString();
-
         return doCallMonster(url);
     }
 
     private ArrayList<Monster> doCall(String url) {
         try {
             String JsonResponse = HttpUtils.get(url);
+
             return procesMonsters(JsonResponse);
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
+
     }
 
     private Monster doCallMonster(String url) {
@@ -57,21 +62,22 @@ public class DndAPI {
         try {
             JSONObject data = new JSONObject(jsonResponse);
             JSONArray jsonMonstersList = data.getJSONArray("results");
-            for (int i = 0; i < jsonMonstersList.length(); i++) {
+            for (int i = 0; i < 10; i++) {
                 JSONObject jsonMonster = jsonMonstersList.getJSONObject(i);
 
                 Monster monster = new Monster();
-                monster.setImg(jsonMonster.getString("url"));
 
+
+                monster.setImg(jsonMonster.getString("url"));
                 monsters.add(monster);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        for (Monster monster :monsters) {
-            monster=getMonstersInfo(monster.img);
-        }
 
+        for (int i=0;i<monsters.size();i++){
+            monsters.set(i,getMonstersInfo(monsters.get(i).getImg()));
+        }
         return monsters;
     }
 
@@ -84,9 +90,12 @@ public class DndAPI {
 
             // Obtener info general
             monster.setName(data.getString("name"));
-            monster.setImg(data.getString("image"));
+            if (data.has("image")) {
+                monster.setImg(BASE_URL+data.getString("image"));
+            }
             monster.setSize(data.getString("size"));
             monster.setHp(data.getInt("hit_points"));
+
             // Obtener Atributos
             monster.setCon(data.getInt("constitution"));
             monster.setStr(data.getInt("strength"));
@@ -96,9 +105,12 @@ public class DndAPI {
             monster.setChari(data.getInt("charisma"));
 
             // Obtener la "armor_class"
-            JSONObject armorClassObject = data.getJSONObject("armor_class");
-            int armorClass = armorClassObject.getInt("value");
-            monster.setAc(armorClass);
+            JSONArray armorClassArray = data.getJSONArray("armor_class");
+            if (armorClassArray.length() > 0) {
+                JSONObject armorClassObject = armorClassArray.getJSONObject(0);
+                int armorClass = armorClassObject.getInt("value");
+                monster.setAc(armorClass);
+            }
 
             // Procesar las acciones si hay
             if (data.has("actions")) {
@@ -128,7 +140,7 @@ public class DndAPI {
                 monster.setSpecialAbilities(specialAbilitiesList);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("aaaa",e.getMessage());
         }
         return monster;
     }
