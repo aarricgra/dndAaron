@@ -3,26 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/MonsterList">
 
     <fragment
-        android:id="@+id/FirstFragment"
+        android:id="@+id/MonsterList"
         android:name="com.example.dndaaron.MonsterList"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/monster_list">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            android:id="@+id/action_MonsterList_to_MonsterView"
             app:destination="@id/SecondFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.example.dndaaron.SecondFragment"
+        android:name="com.example.dndaaron.MonsterView"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/monster_view">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            app:destination="@id/MonsterList" />
     </fragment>
 </navigation>

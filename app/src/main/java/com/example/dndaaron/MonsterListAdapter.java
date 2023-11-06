@@ -11,8 +11,8 @@ import com.example.dndaaron.API.Monster;
 
 import java.util.List;
 
-public class MonsterAdapter extends ArrayAdapter<Monster> {
-    public MonsterAdapter(Context context, int resource, List<Monster> objects) {
+public class MonsterListAdapter extends ArrayAdapter<Monster> {
+    public MonsterListAdapter(Context context, int resource, List<Monster> objects) {
         super(context, resource, objects);
     }
 

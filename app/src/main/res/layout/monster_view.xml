@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MonsterView">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/mCha"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="3"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/tChar"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/tChar"
+            app:layout_constraintTop_toBottomOf="@+id/tChar" />
+
+        <TextView
+            android:id="@+id/mStr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="3"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/tStr"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/tStr"
+            app:layout_constraintTop_toBottomOf="@+id/tStr" />
+
+        <ImageView
+            android:id="@+id/mImage"
+            android:layout_width="175dp"
+            android:layout_height="191dp"
+            android:src="@tools:sample/avatars"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.194" />
+
+        <TextView
+            android:id="@+id/mName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Name"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mImage" />
+
+        <TextView
+            android:id="@+id/tCon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="70dp"
+            android:text="Con"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mName" />
+
+        <TextView
+            android:id="@+id/tChar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="44dp"
+            android:text="Cha"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/tWis"
+            app:layout_constraintTop_toTopOf="@+id/tWis" />
+
+        <TextView
+            android:id="@+id/tStr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="Str"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/tCon"
+            app:layout_constraintTop_toTopOf="@+id/tCon" />
+
+        <TextView
+            android:id="@+id/tDex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="Dex"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/tStr"
+            app:layout_constraintTop_toTopOf="@+id/tStr" />
+
+        <TextView
+            android:id="@+id/mDex"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="3"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/tDex"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/tDex"
+            app:layout_constraintTop_toBottomOf="@+id/tDex" />
+
+        <TextView
+            android:id="@+id/mInt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="3"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/tInt"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/tInt"
+            app:layout_constraintTop_toBottomOf="@+id/tInt" />
+
+        <TextView
+            android:id="@+id/mWis"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="3"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/tWis"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/tWis"
+            app:layout_constraintTop_toBottomOf="@+id/tWis" />
+
+        <TextView
+            android:id="@+id/tInt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="Int"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/tDex"
+            app:layout_constraintTop_toTopOf="@+id/tDex" />
+
+        <TextView
+            android:id="@+id/tWis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="Wis"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/tInt"
+            app:layout_constraintTop_toTopOf="@+id/tInt" />
+
+        <TextView
+            android:id="@+id/tCa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="16dp"
+            android:text="CA : "
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mName" />
+
+        <TextView
+            android:id="@+id/mCa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="a"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/tCa"
+            app:layout_constraintTop_toTopOf="@+id/tCa" />
+
+        <TextView
+            android:id="@+id/tHp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="HP : "
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/mHp"
+            app:layout_constraintTop_toBottomOf="@+id/mName" />
+
+        <TextView
+            android:id="@+id/mHp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="70dp"
+            android:text="a"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tHp" />
+
+        <TextView
+            android:id="@+id/mCon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="3"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/tCon"
+            app:layout_constraintStart_toStartOf="@+id/tCon"
+            app:layout_constraintTop_toBottomOf="@+id/tCon" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

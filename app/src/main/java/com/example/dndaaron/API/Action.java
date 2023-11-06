@@ -4,7 +4,9 @@ public class Action {
     String name;
     String desc;
 
-    public Action(String name, String desc) {
+    String type;
+
+    public Action(String name, String desc,String type) {
         this.name = name;
         this.desc = desc;
     }
@@ -17,6 +19,7 @@ public class Action {
         return "Action{" +
                 "name='" + name + '\'' +
                 ", desc='" + desc + '\'' +
+                ", type='" + type + '\'' +
                 '}';
     }
 
@@ -34,5 +37,13 @@ public class Action {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

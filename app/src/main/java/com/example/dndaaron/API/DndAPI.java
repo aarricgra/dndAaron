@@ -62,7 +62,7 @@ public class DndAPI {
         try {
             JSONObject data = new JSONObject(jsonResponse);
             JSONArray jsonMonstersList = data.getJSONArray("results");
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 10/*jsonMonstersList.length()*/; i++) {
                 JSONObject jsonMonster = jsonMonstersList.getJSONObject(i);
 
                 Monster monster = new Monster();
@@ -121,6 +121,7 @@ public class DndAPI {
                     Action action = new Action();
                     action.setName(actionObject.getString("name"));
                     action.setDesc(actionObject.getString("desc"));
+                    action.setType("Action");
                     actionsList.add(action);
                 }
                 monster.setActions(actionsList);
@@ -129,15 +130,16 @@ public class DndAPI {
             // Procesar las habilidades especiales si hay
             if (data.has("special_abilities")) {
                 JSONArray specialAbilitiesArray = data.getJSONArray("special_abilities");
-                ArrayList<SpecialAbility> specialAbilitiesList = new ArrayList<>();
+                ArrayList<Action> specialAbilitiesList = monster.getActions();
                 for (int i = 0; i < specialAbilitiesArray.length(); i++) {
                     JSONObject specialAbilityObject = specialAbilitiesArray.getJSONObject(i);
-                    SpecialAbility specialAbility = new SpecialAbility();
+                    Action specialAbility = new Action();
                     specialAbility.setName(specialAbilityObject.getString("name"));
                     specialAbility.setDesc(specialAbilityObject.getString("desc"));
+                    specialAbility.setType("SpecialAbility");
                     specialAbilitiesList.add(specialAbility);
                 }
-                monster.setSpecialAbilities(specialAbilitiesList);
+                monster.setActions(specialAbilitiesList);
             }
         } catch (Exception e) {
             Log.d("aaaa",e.getMessage());
