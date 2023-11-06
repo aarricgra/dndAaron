@@ -1,8 +1,9 @@
 package com.example.dndaaron.API;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Monster {
+public class Monster implements Serializable {
     String name;
     String size;
     int ac;
@@ -12,12 +13,11 @@ public class Monster {
     int con,str,dex,inte,wis,chari,challenge_rating;
 
     ArrayList<Action> actions;
-    ArrayList<SpecialAbility> specialAbilities;
 
     public Monster() {
     }
 
-    public Monster(String name, String size, int ac, int hp, int speed, String img, int con, int str, int dex, int inte, int wis, int chari,int challenge_rating, ArrayList<Action> actions, ArrayList<SpecialAbility> specialAbilities) {
+    public Monster(String name, String size, int ac, int hp, int speed, String img, int con, int str, int dex, int inte, int wis, int chari,int challenge_rating, ArrayList<Action> actions) {
         this.name = name;
         this.size = size;
         this.ac = ac;
@@ -30,7 +30,6 @@ public class Monster {
         this.wis = wis;
         this.chari = chari;
         this.actions = actions;
-        this.specialAbilities = specialAbilities;
         this.challenge_rating= challenge_rating;
     }
 
@@ -81,14 +80,6 @@ public class Monster {
 
     public void setActions(ArrayList<Action> actions) {
         this.actions = actions;
-    }
-
-    public ArrayList<SpecialAbility> getSpecialAbilities() {
-        return specialAbilities;
-    }
-
-    public void setSpecialAbilities(ArrayList<SpecialAbility> specialAbilities) {
-        this.specialAbilities = specialAbilities;
     }
 
     public int getCon() {
@@ -163,7 +154,6 @@ public class Monster {
                 ", chari=" + chari +
                 ", challenge_rating=" + challenge_rating +
                 ", actions=" + actions +
-                ", specialAbilities=" + specialAbilities +
                 '}';
     }
 }

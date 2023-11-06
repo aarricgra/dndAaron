@@ -15,6 +15,7 @@ import com.example.dndaaron.API.DndAPI;
 import com.example.dndaaron.API.Monster;
 import com.example.dndaaron.databinding.MonsterListBinding;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -60,7 +61,7 @@ public class MonsterList extends Fragment {
             Monster monster = (Monster) adapterView.getItemAtPosition(i);
 
             Bundle datos = new Bundle();
-            datos.putSerializable("monsters", monsters);
+            datos.putSerializable("monster", monster);
 
 
             NavHostFragment.findNavController(this).navigate(R.id.action_MonsterList_to_MonsterView, datos);

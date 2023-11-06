@@ -9,8 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.dndaaron.API.Monster;
-import com.example.dndaaron.databinding.FragmentSecondBinding;
 import com.example.dndaaron.databinding.MonsterViewBinding;
+import com.squareup.picasso.Picasso;
 
 public class MonsterView extends Fragment {
 
@@ -33,7 +33,7 @@ public class MonsterView extends Fragment {
         Bundle args = getArguments();
 
         if(args != null) {
-            Monster monster = (Monster) args.getSerializable("pokemon");
+            Monster monster = (Monster) args.getSerializable("monster");
 
             if (monster != null) {
                 updateUi(monster);
@@ -42,10 +42,19 @@ public class MonsterView extends Fragment {
     }
 
     private void updateUi(Monster monster) {
-        binding.INombre.setText(pokemon.getName());
-        Picasso.get().load(pokemon.getImage()).into(binding.IFoto);
-        binding.IPeso.setText(""+pokemon.getWeight());
-        binding.IAltura.setText(""+pokemon.getHeight());
+        binding.mName.setText(monster.getName());
+        Picasso.get().load(monster.getImg()).into(binding.mImage);
+
+        binding.mCa.setText(""+monster.getAc());
+        binding.mHp.setText(""+monster.getHp());
+
+        binding.mCon.setText(""+monster.getCon());
+        binding.mStr.setText(""+monster.getStr());
+        binding.mDex.setText(""+monster.getDex());
+        binding.mInt.setText(""+monster.getInte());
+        binding.mWis.setText(""+monster.getWis());
+        binding.mCha.setText(""+monster.getChari());
+
     }
 
     @Override
