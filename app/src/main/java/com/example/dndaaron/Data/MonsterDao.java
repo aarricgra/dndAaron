@@ -10,9 +10,9 @@ import com.example.dndaaron.API.Monster;
 
 import java.util.List;
 
-public class MonsterDao {
+
     @Dao
-    public interface PokemonDao {
+    public interface MonsterDao {
         @Query("select * from monster")
         LiveData<List<Monster>> getMonsters();
 
@@ -28,4 +28,4 @@ public class MonsterDao {
         @Query("DELETE FROM monster")
         void deleteMonsters();
     }
-}
+

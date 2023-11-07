@@ -1,14 +1,17 @@
 package com.example.dndaaron.API;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import androidx.room.Relation;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 @Entity
 public class Monster implements Serializable {
     @PrimaryKey(autoGenerate = true)
-    int id;
+    public
+    int idMonster;
     String name;
     String size;
     int ac;
@@ -17,12 +20,10 @@ public class Monster implements Serializable {
 
     int con,str,dex,inte,wis,chari,challenge_rating;
 
-    ArrayList<Action> actions;
-
     public Monster() {
     }
 
-    public Monster(String name, String size, int ac, int hp, int speed, String img, int con, int str, int dex, int inte, int wis, int chari,int challenge_rating, ArrayList<Action> actions) {
+    public Monster(String name, String size, int ac, int hp, int speed, String img, int con, int str, int dex, int inte, int wis, int chari,int challenge_rating) {
         this.name = name;
         this.size = size;
         this.ac = ac;
@@ -34,7 +35,6 @@ public class Monster implements Serializable {
         this.inte = inte;
         this.wis = wis;
         this.chari = chari;
-        this.actions = actions;
         this.challenge_rating= challenge_rating;
     }
 
@@ -79,13 +79,6 @@ public class Monster implements Serializable {
         this.img = img;
     }
 
-    public ArrayList<Action> getActions() {
-        return actions;
-    }
-
-    public void setActions(ArrayList<Action> actions) {
-        this.actions = actions;
-    }
 
     public int getCon() {
         return con;
@@ -143,6 +136,14 @@ public class Monster implements Serializable {
         this.challenge_rating = challenge_rating;
     }
 
+    public int getIdMonster() {
+        return idMonster;
+    }
+
+    public void setIdMonster(int idMonster) {
+        this.idMonster = idMonster;
+    }
+
     @Override
     public String toString() {
         return "Monster{" +
@@ -158,7 +159,6 @@ public class Monster implements Serializable {
                 ", wis=" + wis +
                 ", chari=" + chari +
                 ", challenge_rating=" + challenge_rating +
-                ", actions=" + actions +
                 '}';
     }
 }

@@ -8,9 +8,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
-public class DndAPI {
+public class MonsterAPI {
     private final String BASE_URL = "https://www.dnd5eapi.co";
 
     public ArrayList<Monster> getMonsters() {
@@ -110,36 +109,6 @@ public class DndAPI {
                 JSONObject armorClassObject = armorClassArray.getJSONObject(0);
                 int armorClass = armorClassObject.getInt("value");
                 monster.setAc(armorClass);
-            }
-
-            // Procesar las acciones si hay
-            if (data.has("actions")) {
-                JSONArray actionsArray = data.getJSONArray("actions");
-                ArrayList<Action> actionsList = new ArrayList<>();
-                for (int i = 0; i < actionsArray.length(); i++) {
-                    JSONObject actionObject = actionsArray.getJSONObject(i);
-                    Action action = new Action();
-                    action.setName(actionObject.getString("name"));
-                    action.setDesc(actionObject.getString("desc"));
-                    action.setType("Action");
-                    actionsList.add(action);
-                }
-                monster.setActions(actionsList);
-            }
-
-            // Procesar las habilidades especiales si hay
-            if (data.has("special_abilities")) {
-                JSONArray specialAbilitiesArray = data.getJSONArray("special_abilities");
-                ArrayList<Action> specialAbilitiesList = monster.getActions();
-                for (int i = 0; i < specialAbilitiesArray.length(); i++) {
-                    JSONObject specialAbilityObject = specialAbilitiesArray.getJSONObject(i);
-                    Action specialAbility = new Action();
-                    specialAbility.setName(specialAbilityObject.getString("name"));
-                    specialAbility.setDesc(specialAbilityObject.getString("desc"));
-                    specialAbility.setType("SpecialAbility");
-                    specialAbilitiesList.add(specialAbility);
-                }
-                monster.setActions(specialAbilitiesList);
             }
         } catch (Exception e) {
             Log.d("aaaa",e.getMessage());

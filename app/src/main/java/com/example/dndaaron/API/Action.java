@@ -1,14 +1,24 @@
 package com.example.dndaaron.API;
 
-public class Action {
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import java.io.Serializable;
+
+@Entity
+public class Action implements Serializable {
+    @PrimaryKey(autoGenerate = true)
+    int idAction;
     String name;
     String desc;
 
     String type;
+    int idMonster;
 
-    public Action(String name, String desc,String type) {
+    public Action(String name, String desc,String type,int idMonster) {
         this.name = name;
         this.desc = desc;
+        this.idMonster=idMonster;
     }
 
     public Action() {
@@ -17,9 +27,11 @@ public class Action {
     @Override
     public String toString() {
         return "Action{" +
-                "name='" + name + '\'' +
+                "idAction=" + idAction +
+                ", name='" + name + '\'' +
                 ", desc='" + desc + '\'' +
                 ", type='" + type + '\'' +
+                ", idMonster=" + idMonster +
                 '}';
     }
 
@@ -45,5 +57,21 @@ public class Action {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public int getIdAction() {
+        return idAction;
+    }
+
+    public void setIdAction(int idAction) {
+        this.idAction = idAction;
+    }
+
+    public int getIdMonster() {
+        return idMonster;
+    }
+
+    public void setIdMonster(int idMonster) {
+        this.idMonster = idMonster;
     }
 }

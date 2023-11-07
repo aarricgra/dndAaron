@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.dndaaron.API.Action;
 import com.example.dndaaron.API.Monster;
+import com.example.dndaaron.Data.ActionViewModel;
 import com.example.dndaaron.databinding.MonsterViewBinding;
 import com.squareup.picasso.Picasso;
 
@@ -25,6 +26,8 @@ public class MonsterView extends Fragment {
     private MonsterViewBinding binding;
     private MonsterViewAdapter adapter1;
     private MonsterViewAdapter adapter2;
+
+    private ActionViewModel model;
 
     @Override
     public View onCreateView(
@@ -85,22 +88,22 @@ public class MonsterView extends Fragment {
         );
 
 
-        adapter1 = new MonsterViewAdapter(getContext(),R.layout.action_row,new ArrayList<Action>());
-        binding.actionList.setAdapter(adapter1);
-        for (Action action:monster.getActions()) {
-            if (action.getType().equals("Action")){
-                adapter1.add(action);
-            }
-        }
+//        adapter1 = new MonsterViewAdapter(getContext(),R.layout.action_row,new ArrayList<Action>());
+//        binding.actionList.setAdapter(adapter1);
+//        for (Action action:monster.getActions()) {
+//            if (action.getType().equals("Action")){
+//                adapter1.add(action);
+//            }
+//        }
 
-        adapter2 = new MonsterViewAdapter(getContext(),R.layout.action_row,new ArrayList<Action>());
-        binding.abilitiesList.setAdapter(adapter2);
-
-        for (Action action:monster.getActions()) {
-            if (action.getType().equals("SpecialAbility")){
-                adapter2.add(action);
-            }
-        }
+//        adapter2 = new MonsterViewAdapter(getContext(),R.layout.action_row,new ArrayList<Action>());
+//        binding.abilitiesList.setAdapter(adapter2);
+//
+//        for (Action action:monster.getActions()) {
+//            if (action.getType().equals("SpecialAbility")){
+//                adapter2.add(action);
+//            }
+//        }
 
     }
 
