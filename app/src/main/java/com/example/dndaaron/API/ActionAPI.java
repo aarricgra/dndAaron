@@ -56,6 +56,7 @@ public class ActionAPI {
 
     private ArrayList<Action> procesMonsters(String jsonResponse) {
         ArrayList<Action> actions = new ArrayList<>();
+        ArrayList<String> urls = new ArrayList<>();
         try {
             JSONObject monster = new JSONObject(jsonResponse);
             JSONArray jsonMonstersList = monster.getJSONArray("results");
@@ -64,16 +65,14 @@ public class ActionAPI {
 
                 Action action = new Action();
 
-                action.setIdMonster(i);
-                action.setDesc(jsonMonster.getString("url"));
-                actions.add(action);
+                urls.add(jsonMonster.getString("url"));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        for (int i=0;i<actions.size();i++){
-            getActionsInfo(actions,actions.get(i).getDesc(), actions.get(i).getIdMonster());
+        for (int i=0;i<urls.size();i++){
+            getActionsInfo(actions,urls.get(i),i);
         }
         return actions;
     }
@@ -81,7 +80,7 @@ public class ActionAPI {
 
 
     private void procesActionsInfo(String jsonResponse, int idMonster, ArrayList<Action> actions) {
-
+        Log.d("aaeeaa1",actions.toString());
         try {
             JSONObject data = new JSONObject(jsonResponse);
             // Procesar las acciones si hay
@@ -98,7 +97,6 @@ public class ActionAPI {
                     actions.add(action);
                 }
             }
-
             // Procesar las habilidades especiales si hay
             if (data.has("special_abilities")) {
                 JSONArray specialAbilitiesArray = data.getJSONArray("special_abilities");

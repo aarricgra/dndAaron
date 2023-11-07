@@ -11,10 +11,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.dndaaron.API.Action;
 import com.example.dndaaron.API.Monster;
 import com.example.dndaaron.Data.ActionViewModel;
+import com.example.dndaaron.Data.MonsterViewModel;
 import com.example.dndaaron.databinding.MonsterViewBinding;
 import com.squareup.picasso.Picasso;
 
@@ -88,14 +90,17 @@ public class MonsterView extends Fragment {
         );
 
 
-//        adapter1 = new MonsterViewAdapter(getContext(),R.layout.action_row,new ArrayList<Action>());
-//        binding.actionList.setAdapter(adapter1);
-//        for (Action action:monster.getActions()) {
-//            if (action.getType().equals("Action")){
-//                adapter1.add(action);
-//            }
-//        }
+        adapter1 = new MonsterViewAdapter(getContext(),R.layout.action_row,new ArrayList<Action>());
+        binding.actionList.setAdapter(adapter1);
 
+        model= new ViewModelProvider(this).get(ActionViewModel.class);
+
+        model.getActionsFrom(monster.getIdMonster()).observe(
+                getViewLifecycleOwner(),actions -> {
+                    adapter1.clear();
+                    adapter1.addAll(actions);
+                }
+        );
 //        adapter2 = new MonsterViewAdapter(getContext(),R.layout.action_row,new ArrayList<Action>());
 //        binding.abilitiesList.setAdapter(adapter2);
 //

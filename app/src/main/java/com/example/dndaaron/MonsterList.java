@@ -1,6 +1,7 @@
 package com.example.dndaaron;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.dndaaron.API.Monster;
+import com.example.dndaaron.Data.ActionViewModel;
 import com.example.dndaaron.Data.MonsterViewModel;
 import com.example.dndaaron.databinding.MonsterListBinding;
 
@@ -25,13 +27,14 @@ public class MonsterList extends Fragment {
     private MonsterListBinding binding;
     private ArrayList<Monster> monsters;
     private MonsterListAdapter adapter;
+    private ActionViewModel model2;
     private MonsterViewModel model;
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-
+        setHasOptionsMenu(true);
         binding = MonsterListBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
@@ -43,8 +46,8 @@ public class MonsterList extends Fragment {
         adapter = new MonsterListAdapter(getContext(),R.layout.monster_row,new ArrayList<Monster>());
 
         binding.list.setAdapter(adapter);
-
-        model= new ViewModelProvider(this).get(MonsterViewModel.class);
+        model2=new ViewModelProvider(this).get(ActionViewModel.class);
+        model=new ViewModelProvider(this).get(MonsterViewModel.class);
 
         model.getMonsters().observe(
                 getViewLifecycleOwner(),pokemons -> {
@@ -84,6 +87,7 @@ public class MonsterList extends Fragment {
 
         if (id == R.id.btRefresh) {
             model.refresh();
+            model2.refresh();
         }
 
         return super.onOptionsItemSelected(item);

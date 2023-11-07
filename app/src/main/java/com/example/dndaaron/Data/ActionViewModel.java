@@ -30,8 +30,8 @@ public class ActionViewModel extends AndroidViewModel {
             this.actionDao = actionDatabase.getActionDao();
         }
 
-        public LiveData<List<Action>> getMonsters() {
-            return actionDao.getActions();
+        public LiveData<List<Action>> getActionsFrom(int key) {
+            return actionDao.getActionsFrom(key);
         }
 
         public void refresh() {

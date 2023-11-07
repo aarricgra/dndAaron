@@ -18,6 +18,9 @@ public interface ActionDao {
         @Query("select * from `action`")
         LiveData<List<Action>> getActions();
 
+        @Query("select * from `action` where idMonster = :key")
+        LiveData<List<Action>> getActionsFrom(int key);
+
         @Insert
         void addAction(Action action);
 
