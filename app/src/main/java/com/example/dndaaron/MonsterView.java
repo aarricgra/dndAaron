@@ -1,20 +1,30 @@
 package com.example.dndaaron;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.dndaaron.API.Action;
 import com.example.dndaaron.API.Monster;
 import com.example.dndaaron.databinding.MonsterViewBinding;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class MonsterView extends Fragment {
 
     private MonsterViewBinding binding;
+    private MonsterViewAdapter adapter1;
+    private MonsterViewAdapter adapter2;
 
     @Override
     public View onCreateView(
@@ -48,13 +58,68 @@ public class MonsterView extends Fragment {
         binding.mCa.setText(""+monster.getAc());
         binding.mHp.setText(""+monster.getHp());
 
+        Random random = new Random();
         binding.mCon.setText(""+monster.getCon());
+        binding.mCon.setOnClickListener(
+                v -> rollDice(monster.getCon())
+        );
         binding.mStr.setText(""+monster.getStr());
+        binding.mStr.setOnClickListener(
+                v -> rollDice(monster.getStr())
+        );
         binding.mDex.setText(""+monster.getDex());
+        binding.mDex.setOnClickListener(
+                v -> rollDice(monster.getDex())
+        );
         binding.mInt.setText(""+monster.getInte());
+        binding.mInt.setOnClickListener(
+                v -> rollDice(monster.getInte())
+        );
         binding.mWis.setText(""+monster.getWis());
+        binding.mWis.setOnClickListener(
+                v -> rollDice(monster.getWis())
+        );
         binding.mCha.setText(""+monster.getChari());
+        binding.mCha.setOnClickListener(
+                v -> rollDice(monster.getChari())
+        );
 
+
+        adapter1 = new MonsterViewAdapter(getContext(),R.layout.action_row,new ArrayList<Action>());
+        binding.actionList.setAdapter(adapter1);
+        for (Action action:monster.getActions()) {
+            if (action.getType().equals("Action")){
+                adapter1.add(action);
+            }
+        }
+
+        adapter2 = new MonsterViewAdapter(getContext(),R.layout.action_row,new ArrayList<Action>());
+        binding.abilitiesList.setAdapter(adapter2);
+
+        for (Action action:monster.getActions()) {
+            if (action.getType().equals("SpecialAbility")){
+                adapter2.add(action);
+            }
+        }
+
+    }
+
+    private void rollDice(int value) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Rolled dice");
+        Random random = new Random();
+        int r=random.nextInt(20)+1;
+        int m=(value-10)/2;
+        builder.setMessage(r+"+"+m+"="+(r+m));
+
+        builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override

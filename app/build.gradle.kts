@@ -45,4 +45,16 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("com.squareup.picasso:picasso:2.8")
+
+
+    // ViewModel
+    implementation ("androidx.lifecycle:lifecycle-viewmodel:2.6.0-alpha02")
+    // LiveData
+    implementation ("androidx.lifecycle:lifecycle-livedata:2.6.0-alpha02")
+    // Annotation processor
+    // alternately - if using Java8, use the following instead of lifecycle-compiler
+    implementation ("androidx.lifecycle:lifecycle-common-java8:2.6.0-alpha02")
+
+    implementation ("androidx.room:room-runtime:2.4.3")
+    annotationProcessor ("androidx.room:room-compiler:2.4.3")
 }

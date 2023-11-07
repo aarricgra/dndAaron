@@ -1,9 +1,14 @@
 package com.example.dndaaron.API;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
 import java.util.ArrayList;
-
+@Entity
 public class Monster implements Serializable {
+    @PrimaryKey(autoGenerate = true)
+    int id;
     String name;
     String size;
     int ac;

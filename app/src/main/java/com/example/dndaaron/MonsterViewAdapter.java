@@ -16,11 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MonsterViewAdapter extends ArrayAdapter<Action> {
-    String type;
 
-    public MonsterViewAdapter(Context context, int resource, ArrayList<Action> objects,String type) {
+    public MonsterViewAdapter(Context context, int resource, ArrayList<Action> objects) {
         super(context, resource, objects);
-        this.type=type;
     }
 
 
@@ -28,19 +26,19 @@ public class MonsterViewAdapter extends ArrayAdapter<Action> {
     public View getView(int position, View convertView, ViewGroup parent) {
         Action action = getItem(position);
 
-        if (action.getType().equals(type)){
 
-        }
-        if (convertView == null) {
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.action_row, parent, false);
-        }
+            if (convertView == null) {
+                LayoutInflater inflater = LayoutInflater.from(getContext());
+                convertView = inflater.inflate(R.layout.action_row, parent, false);
+            }
 
-        TextView aName = convertView.findViewById(R.id.aName);
-        TextView aDesc = convertView.findViewById(R.id.aDesc);
+            TextView aName = convertView.findViewById(R.id.aName);
+            TextView aDesc = convertView.findViewById(R.id.aDesc);
 
-        aName.setText(action.getName());
-        aDesc.setText(action.getDesc());
+            aName.setText(action.getName());
+            aDesc.setText(action.getDesc());
+
+
 
         return convertView;
     }
