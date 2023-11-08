@@ -10,22 +10,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 
-import com.example.dndaaron.API.Action;
+import com.example.dndaaron.API.AbilitiesActions;
 import com.example.dndaaron.API.Monster;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MonsterViewAdapter extends ArrayAdapter<Action> {
+public class MonsterViewAdapter extends ArrayAdapter<AbilitiesActions> {
 
-    public MonsterViewAdapter(Context context, int resource, ArrayList<Action> objects) {
+    public MonsterViewAdapter(Context context, int resource, ArrayList<AbilitiesActions> objects) {
         super(context, resource, objects);
     }
 
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Action action = getItem(position);
+        AbilitiesActions action = getItem(position);
 
 
             if (convertView == null) {

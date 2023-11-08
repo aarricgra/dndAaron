@@ -7,14 +7,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 
-import com.example.dndaaron.API.Action;
+import com.example.dndaaron.API.AbilitiesActions;
 import com.example.dndaaron.API.Monster;
 import com.example.dndaaron.Data.ActionViewModel;
 import com.example.dndaaron.Data.MonsterViewModel;
@@ -30,7 +29,7 @@ public class MonsterView extends Fragment {
     private MonsterViewAdapter adapter1;
     private MonsterViewAdapter adapter2;
 
-    private ActionViewModel model;
+    private MonsterViewModel model;
 
     @Override
     public View onCreateView(
@@ -91,27 +90,31 @@ public class MonsterView extends Fragment {
         );
 
 
-        adapter1 = new MonsterViewAdapter(getContext(),R.layout.action_row,new ArrayList<Action>());
+        adapter1 = new MonsterViewAdapter(getContext(),R.layout.action_row,new ArrayList<AbilitiesActions>());
         binding.actionList.setAdapter(adapter1);
 
-        model= new ViewModelProvider(this).get(ActionViewModel.class);
+        model= new ViewModelProvider(this).get(MonsterViewModel.class);
 
-        model.getActionsFrom(monster.getIdMonster()).observe(
+        model.getActionsFrom(monster.getName(),"Action").observe(
                 getViewLifecycleOwner(),actions -> {
-                    Log.d("LiveData", "Received data update");
-                    Log.d("LiveData", "Number of actions: " + actions.size());
                     adapter1.clear();
                     adapter1.addAll(actions);
+                    Log.d("eeaaee",actions.toString());
                 }
         );
-//        adapter2 = new MonsterViewAdapter(getContext(),R.layout.action_row,new ArrayList<Action>());
-//        binding.abilitiesList.setAdapter(adapter2);
 //
-//        for (Action action:monster.getActions()) {
-//            if (action.getType().equals("SpecialAbility")){
-//                adapter2.add(action);
-//            }
-//        }
+        adapter2 = new MonsterViewAdapter(getContext(),R.layout.action_row,new ArrayList<AbilitiesActions>());
+        binding.abilitiesList.setAdapter(adapter2);
+
+        model= new ViewModelProvider(this).get(MonsterViewModel.class);
+
+        model.getActionsFrom(monster.getName(),"SpecialAbility").observe(
+                getViewLifecycleOwner(),actions -> {
+                    adapter2.clear();
+                    adapter2.addAll(actions);
+                    Log.d("eeaaee",actions.toString());
+                }
+        );
 
     }
 

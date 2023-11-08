@@ -27,5 +27,7 @@ import java.util.List;
 
         @Query("DELETE FROM monster")
         void deleteMonsters();
+        @Query("DELETE FROM sqlite_sequence WHERE name='monster'")
+        void resetMonsterTable();
     }
 

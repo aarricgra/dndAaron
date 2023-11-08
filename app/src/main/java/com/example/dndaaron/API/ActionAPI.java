@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class ActionAPI {
     private final String BASE_URL = "https://www.dnd5eapi.co";
 
-    public ArrayList<Action> getActions() {
+    public ArrayList<AbilitiesActions> getActions() {
         Uri builtUri = Uri.parse(BASE_URL)
                 .buildUpon()
                 .appendPath("api")
@@ -22,7 +22,7 @@ public class ActionAPI {
         return doCall(url);
     }
 
-    void getActionsInfo(ArrayList<Action> actions, String link, int idMonster) {
+    void getActionsInfo(ArrayList<AbilitiesActions> actions, String link, int idMonster) {
         String[] parts = link.split("/");
         Uri builtUri = Uri.parse(BASE_URL)
                 .buildUpon()
@@ -34,7 +34,7 @@ public class ActionAPI {
         doCallMonster(url,idMonster,actions);
     }
 
-    private ArrayList<Action> doCall(String url) {
+    private ArrayList<AbilitiesActions> doCall(String url) {
         try {
             String JsonResponse = HttpUtils.get(url);
 
@@ -45,7 +45,7 @@ public class ActionAPI {
         }
     }
 
-    private void doCallMonster(String url, int idMonster, ArrayList<Action> actions) {
+    private void doCallMonster(String url, int idMonster, ArrayList<AbilitiesActions> actions) {
         try {
             String JsonResponse = HttpUtils.get(url);
             procesActionsInfo(JsonResponse,idMonster,actions);
@@ -54,8 +54,8 @@ public class ActionAPI {
         }
     }
 
-    private ArrayList<Action> procesMonsters(String jsonResponse) {
-        ArrayList<Action> actions = new ArrayList<>();
+    private ArrayList<AbilitiesActions> procesMonsters(String jsonResponse) {
+        ArrayList<AbilitiesActions> actions = new ArrayList<>();
         ArrayList<String> urls = new ArrayList<>();
         try {
             JSONObject monster = new JSONObject(jsonResponse);
@@ -63,7 +63,7 @@ public class ActionAPI {
             for (int i = 0; i < 10/*jsonMonstersList.length()*/; i++) {
                 JSONObject jsonMonster = jsonMonstersList.getJSONObject(i);
 
-                Action action = new Action();
+                AbilitiesActions action = new AbilitiesActions();
 
                 urls.add(jsonMonster.getString("url"));
             }
@@ -79,20 +79,21 @@ public class ActionAPI {
 
 
 
-    private void procesActionsInfo(String jsonResponse, int idMonster, ArrayList<Action> actions) {
-        Log.d("aaeeaa1",actions.toString());
+    private void procesActionsInfo(String jsonResponse, int idMonster, ArrayList<AbilitiesActions> actions) {
+
         try {
             JSONObject data = new JSONObject(jsonResponse);
+            String mname= data.getString("name");
             // Procesar las acciones si hay
             if (data.has("actions")) {
                 JSONArray actionsArray = data.getJSONArray("actions");
 
                 for (int i = 0; i < actionsArray.length(); i++) {
                     JSONObject actionObject = actionsArray.getJSONObject(i);
-                    Action action = new Action();
+                    AbilitiesActions action = new AbilitiesActions();
                     action.setName(actionObject.getString("name"));
                     action.setDesc(actionObject.getString("desc"));
-                    action.setIdMonster(idMonster);
+                    action.setNameMonster(mname);
                     action.setType("Action");
                     actions.add(action);
                 }
@@ -102,16 +103,16 @@ public class ActionAPI {
                 JSONArray specialAbilitiesArray = data.getJSONArray("special_abilities");
                 for (int i = 0; i < specialAbilitiesArray.length(); i++) {
                     JSONObject specialAbilityObject = specialAbilitiesArray.getJSONObject(i);
-                    Action specialAbility = new Action();
+                    AbilitiesActions specialAbility = new AbilitiesActions();
                     specialAbility.setName(specialAbilityObject.getString("name"));
                     specialAbility.setDesc(specialAbilityObject.getString("desc"));
-                    specialAbility.setIdMonster(idMonster);
+                    specialAbility.setNameMonster(mname.toString());
                     specialAbility.setType("SpecialAbility");
                     actions.add(specialAbility);
                 }
             }
         } catch (Exception e) {
-            Log.d("aaaa",e.getMessage());
+            e.printStackTrace();
         }
     }
 }
