@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+
 import com.example.dndaaron.API.Action;
 import com.example.dndaaron.API.Monster;
 import com.example.dndaaron.Data.ActionViewModel;
@@ -97,6 +98,8 @@ public class MonsterView extends Fragment {
 
         model.getActionsFrom(monster.getIdMonster()).observe(
                 getViewLifecycleOwner(),actions -> {
+                    Log.d("LiveData", "Received data update");
+                    Log.d("LiveData", "Number of actions: " + actions.size());
                     adapter1.clear();
                     adapter1.addAll(actions);
                 }

@@ -6,10 +6,11 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.dndaaron.API.Action;
-import com.example.dndaaron.API.Monster;
 
-@Database(entities = {Action.class}, version = 1)
+import com.example.dndaaron.API.Action;
+
+
+@Database(entities = {Action.class}, version = 5)
 public abstract class ActionDatabase extends RoomDatabase {
     private static ActionDatabase INSTANCE;
 
@@ -18,7 +19,7 @@ public abstract class ActionDatabase extends RoomDatabase {
             INSTANCE =
                     Room.databaseBuilder(
                             context.getApplicationContext(),
-                            ActionDatabase.class,"db"
+                            ActionDatabase.class,"db2"
                     ).build();
         }
         return INSTANCE;

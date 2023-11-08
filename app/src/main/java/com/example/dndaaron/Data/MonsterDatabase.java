@@ -17,7 +17,7 @@ public abstract class MonsterDatabase extends RoomDatabase {
             INSTANCE =
                     Room.databaseBuilder(
                             context.getApplicationContext(),
-                            MonsterDatabase.class,"db"
+                            MonsterDatabase.class,"db2"
                     ).build();
         }
         return INSTANCE;

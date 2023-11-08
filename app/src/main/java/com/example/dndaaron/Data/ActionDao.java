@@ -8,6 +8,7 @@ import androidx.room.Query;
 
 import com.example.dndaaron.API.Action;
 import com.example.dndaaron.API.ActionAPI;
+
 import com.example.dndaaron.API.Monster;
 
 import java.util.List;
@@ -15,10 +16,10 @@ import java.util.List;
 public interface ActionDao {
 
 
-        @Query("select * from `action`")
+        @Query("select * from `Action`")
         LiveData<List<Action>> getActions();
 
-        @Query("select * from `action` where idMonster = :key")
+        @Query("select * from `Action` where idMonster = :key")
         LiveData<List<Action>> getActionsFrom(int key);
 
         @Insert
@@ -30,6 +31,6 @@ public interface ActionDao {
         @Delete
         void deleteAction(Action action);
 
-        @Query("DELETE FROM `action`")
+        @Query("DELETE FROM `Action`")
         void deleteActions();
 }

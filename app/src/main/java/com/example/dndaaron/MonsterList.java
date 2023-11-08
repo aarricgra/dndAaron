@@ -87,7 +87,7 @@ public class MonsterList extends Fragment {
 
         if (id == R.id.btRefresh) {
             model.refresh();
-            model2.refresh();
+            //model2.refresh();
         }
 
         return super.onOptionsItemSelected(item);
