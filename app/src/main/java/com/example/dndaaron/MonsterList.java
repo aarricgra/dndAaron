@@ -40,11 +40,14 @@ public class MonsterList extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //Crear adapter de la lista vacio
         adapter = new MonsterListAdapter(getContext(),R.layout.monster_row,new ArrayList<Monster>());
 
+        //Ponerle a la lista el adapter
         binding.list.setAdapter(adapter);
-        model=new ViewModelProvider(this).get(MonsterViewModel.class);
 
+        //Coger info de la base de datos y meterla en el adapter
+        model=new ViewModelProvider(this).get(MonsterViewModel.class);
         model.getMonsters().observe(
                 getViewLifecycleOwner(),pokemons -> {
                     adapter.clear();
@@ -52,13 +55,16 @@ public class MonsterList extends Fragment {
                 }
         );
 
+        //Onclick para ir a el fragmento con la info del monstruo.
         binding.list.setOnItemClickListener((adapterView, view1, i, l) -> {
+            //Cojo el monstruo al que le han dado click
             Monster monster = (Monster) adapterView.getItemAtPosition(i);
 
+            //Guardo el monstruo en un bundle para enviarlo al otro fragmento
             Bundle datos = new Bundle();
             datos.putSerializable("monster", monster);
 
-
+            //Cargo el otro fragmento con la info del monstruo
             NavHostFragment.findNavController(this).navigate(R.id.action_MonsterList_to_MonsterView, datos);
         });
 
@@ -81,9 +87,9 @@ public class MonsterList extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
+        //Boton para actualizar la base de datos
         if (id == R.id.btRefresh) {
             model.refresh();
-            //model2.refresh();
         }
 
         return super.onOptionsItemSelected(item);

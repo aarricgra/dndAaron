@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class ActionAPI {
     private final String BASE_URL = "https://www.dnd5eapi.co";
 
+    //Saca todos los monstruos del primer json
     public ArrayList<AbilitiesActions> getActions() {
         Uri builtUri = Uri.parse(BASE_URL)
                 .buildUpon()
@@ -20,18 +21,6 @@ public class ActionAPI {
                 .build();
         String url = builtUri.toString();
         return doCall(url);
-    }
-
-    void getActionsInfo(ArrayList<AbilitiesActions> actions, String link, int idMonster) {
-        String[] parts = link.split("/");
-        Uri builtUri = Uri.parse(BASE_URL)
-                .buildUpon()
-                .appendPath(parts[1])
-                .appendPath(parts[2])
-                .appendPath(parts[3])
-                .build();
-        String url = builtUri.toString();
-        doCallMonster(url,idMonster,actions);
     }
 
     private ArrayList<AbilitiesActions> doCall(String url) {
@@ -45,6 +34,42 @@ public class ActionAPI {
         }
     }
 
+
+    //Aqui va sacondo las acciones de cada monstruo
+    private ArrayList<AbilitiesActions> procesMonsters(String jsonResponse) {
+        ArrayList<AbilitiesActions> actions = new ArrayList<>();
+        ArrayList<String> urls = new ArrayList<>();
+        try {
+            JSONObject monster = new JSONObject(jsonResponse);
+            JSONArray jsonMonstersList = monster.getJSONArray("results");
+            //Guardo todas las url
+            for (int i = 0; i < jsonMonstersList.length(); i++) {
+                JSONObject jsonMonster = jsonMonstersList.getJSONObject(i);
+                urls.add(jsonMonster.getString("url"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //por cada url(monstruo) entro en ese json y cojo las acciones
+        for (int i=0;i<urls.size();i++){
+            getActionsInfo(actions,urls.get(i),i);
+        }
+        return actions;
+    }
+
+    //Esto saca el json de la info del monstruo
+    void getActionsInfo(ArrayList<AbilitiesActions> actions, String link, int idMonster) {
+        String[] parts = link.split("/");
+        Uri builtUri = Uri.parse(BASE_URL)
+                .buildUpon()
+                .appendPath(parts[1])
+                .appendPath(parts[2])
+                .appendPath(parts[3])
+                .build();
+        String url = builtUri.toString();
+        doCallMonster(url,idMonster,actions);
+    }
+
     private void doCallMonster(String url, int idMonster, ArrayList<AbilitiesActions> actions) {
         try {
             String JsonResponse = HttpUtils.get(url);
@@ -54,31 +79,7 @@ public class ActionAPI {
         }
     }
 
-    private ArrayList<AbilitiesActions> procesMonsters(String jsonResponse) {
-        ArrayList<AbilitiesActions> actions = new ArrayList<>();
-        ArrayList<String> urls = new ArrayList<>();
-        try {
-            JSONObject monster = new JSONObject(jsonResponse);
-            JSONArray jsonMonstersList = monster.getJSONArray("results");
-            for (int i = 0; i < jsonMonstersList.length(); i++) {
-                JSONObject jsonMonster = jsonMonstersList.getJSONObject(i);
-
-                AbilitiesActions action = new AbilitiesActions();
-
-                urls.add(jsonMonster.getString("url"));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        for (int i=0;i<urls.size();i++){
-            getActionsInfo(actions,urls.get(i),i);
-        }
-        return actions;
-    }
-
-
-
+    //Del monstruo coje el nombre para poder relacionarlo y luego coje las Acciones y habilidades si tienen
     private void procesActionsInfo(String jsonResponse, int idMonster, ArrayList<AbilitiesActions> actions) {
 
         try {

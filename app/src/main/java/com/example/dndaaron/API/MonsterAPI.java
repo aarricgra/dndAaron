@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class MonsterAPI {
     private final String BASE_URL = "https://www.dnd5eapi.co";
 
+    //Sacar lista  de monstruos
     public ArrayList<Monster> getMonsters() {
         Uri builtUri = Uri.parse(BASE_URL)
                 .buildUpon()
@@ -20,18 +21,6 @@ public class MonsterAPI {
                 .build();
         String url = builtUri.toString();
         return doCall(url);
-    }
-
-    Monster getMonstersInfo(String link) {
-        String[] parts = link.split("/");
-        Uri builtUri = Uri.parse(BASE_URL)
-                .buildUpon()
-                .appendPath(parts[1])
-                .appendPath(parts[2])
-                .appendPath(parts[3])
-                .build();
-        String url = builtUri.toString();
-        return doCallMonster(url);
     }
 
     private ArrayList<Monster> doCall(String url) {
@@ -46,16 +35,7 @@ public class MonsterAPI {
 
     }
 
-    private Monster doCallMonster(String url) {
-        try {
-            String JsonResponse = HttpUtils.get(url);
-            return procesMonstersInfo(JsonResponse);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
+    //Guardo de forma temporal la url de cada monstruo en su img, luego por cada monstruo le saco la info
     private ArrayList<Monster> procesMonsters(String jsonResponse) {
         ArrayList<Monster> monsters = new ArrayList<>();
         try {
@@ -74,14 +54,39 @@ public class MonsterAPI {
             e.printStackTrace();
         }
 
+        //por cada monstruo saco la info
         for (int i=0;i<monsters.size();i++){
             monsters.set(i,getMonstersInfo(monsters.get(i).getImg()));
         }
         return monsters;
     }
 
+    //url del monstruo
+    Monster getMonstersInfo(String link) {
+        String[] parts = link.split("/");
+        Uri builtUri = Uri.parse(BASE_URL)
+                .buildUpon()
+                .appendPath(parts[1])
+                .appendPath(parts[2])
+                .appendPath(parts[3])
+                .build();
+        String url = builtUri.toString();
+        return doCallMonster(url);
+    }
 
 
+    //json del monstruo
+    private Monster doCallMonster(String url) {
+        try {
+            String JsonResponse = HttpUtils.get(url);
+            return procesMonstersInfo(JsonResponse);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    //Coger info del monstruo
     private Monster procesMonstersInfo(String jsonResponse) {
         Monster monster= new Monster();
         try {

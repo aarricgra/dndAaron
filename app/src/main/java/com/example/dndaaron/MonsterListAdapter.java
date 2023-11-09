@@ -25,8 +25,8 @@ public class MonsterListAdapter extends ArrayAdapter<Monster> {
             convertView = inflater.inflate(R.layout.monster_row, parent, false);
         }
 
+        //poner el nombre del monstruo dentro de la textview
         TextView mName = convertView.findViewById(R.id.monsterName);
-
         mName.setText(monster.getName());
 
         return convertView;

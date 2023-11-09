@@ -9,7 +9,8 @@ import androidx.room.RoomDatabase;
 import com.example.dndaaron.API.Monster;
 
 @Database(entities = {Monster.class}, version = 1)
-public abstract class MonsterDatabase extends RoomDatabase {
+public abstract class
+MonsterDatabase extends RoomDatabase {
     private static MonsterDatabase INSTANCE;
 
     public static MonsterDatabase getDatabase(Context context) {
