@@ -61,7 +61,7 @@ public class MonsterAPI {
         try {
             JSONObject data = new JSONObject(jsonResponse);
             JSONArray jsonMonstersList = data.getJSONArray("results");
-            for (int i = 0; i < 10/*jsonMonstersList.length()*/; i++) {
+            for (int i = 0; i < jsonMonstersList.length(); i++) {
                 JSONObject jsonMonster = jsonMonstersList.getJSONObject(i);
 
                 Monster monster = new Monster();

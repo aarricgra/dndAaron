@@ -60,7 +60,7 @@ public class ActionAPI {
         try {
             JSONObject monster = new JSONObject(jsonResponse);
             JSONArray jsonMonstersList = monster.getJSONArray("results");
-            for (int i = 0; i < 10/*jsonMonstersList.length()*/; i++) {
+            for (int i = 0; i < jsonMonstersList.length(); i++) {
                 JSONObject jsonMonster = jsonMonstersList.getJSONObject(i);
 
                 AbilitiesActions action = new AbilitiesActions();

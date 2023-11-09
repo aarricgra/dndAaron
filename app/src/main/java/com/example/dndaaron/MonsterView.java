@@ -123,14 +123,17 @@ public class MonsterView extends Fragment {
         builder.setTitle("Rolled dice");
         Random random = new Random();
         int r=random.nextInt(20)+1;
+        if (value<10){
+            value--;
+        }
         int m=(value-10)/2;
-        builder.setMessage(r+"+"+m+"="+(r+m));
+        if(m<0){
+            builder.setMessage(r+"-"+(m*-1)+"="+(r+m));
+        }else {
+            builder.setMessage(r+"+"+m+"="+(r+m));
+        }
 
-        builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        builder.setNegativeButton("Close", (dialog, which) -> dialog.dismiss());
 
         AlertDialog dialog = builder.create();
         dialog.show();
