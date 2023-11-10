@@ -1,5 +1,7 @@
 package com.example.dndaaron;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -86,12 +88,14 @@ public class MonsterList extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-
+        ProgressDialog dialog = new ProgressDialog(getContext());
+        dialog.setCancelable(false);
+        dialog.setMessage("Updating");
+        dialog.show();
         //Boton para actualizar la base de datos
         if (id == R.id.btRefresh) {
-            model.refresh();
+            model.refresh(dialog);
         }
-
         return super.onOptionsItemSelected(item);
     }
 

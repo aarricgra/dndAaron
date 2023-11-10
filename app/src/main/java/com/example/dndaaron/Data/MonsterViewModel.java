@@ -1,6 +1,8 @@
 package com.example.dndaaron.Data;
 
+import android.app.AlertDialog;
 import android.app.Application;
+import android.app.ProgressDialog;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -42,7 +44,7 @@ public class MonsterViewModel extends AndroidViewModel {
             return actionDao.getActionsFrom(key,type);
         }
 
-        public void refresh() {
+        public void refresh(ProgressDialog dialog) {
             ExecutorService executor = Executors.newSingleThreadExecutor();
 
             executor.execute(() -> {
@@ -50,7 +52,6 @@ public class MonsterViewModel extends AndroidViewModel {
                 ArrayList<Monster> pokemonsApi = api.getMonsters();
 
                 this.monsterDao.deleteMonsters();
-                this.monsterDao.resetMonsterTable();
                 this.monsterDao.addMonsters(pokemonsApi);
 
                 ActionAPI api2 = new ActionAPI();
@@ -58,6 +59,7 @@ public class MonsterViewModel extends AndroidViewModel {
 
                 this.actionDao.deleteActions();
                 this.actionDao.addActions(actionsApi);
+                dialog.dismiss();
             });
         }
     }

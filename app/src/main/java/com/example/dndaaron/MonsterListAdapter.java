@@ -23,6 +23,7 @@ public class MonsterListAdapter extends ArrayAdapter<Monster> {
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.monster_row, parent, false);
+            convertView.setBackgroundResource(R.drawable.rows);
         }
 
         //poner el nombre del monstruo dentro de la textview
