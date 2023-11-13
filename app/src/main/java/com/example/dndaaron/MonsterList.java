@@ -52,7 +52,8 @@ public class MonsterList extends Fragment {
 
         //Coger info de la base de datos y meterla en el adapter
         model=new ViewModelProvider(this).get(MonsterViewModel.class);
-        model.getMonstersFilteredBy(binding.filterInput.toString()).observe(
+        binding.filterInput.setText("");
+        model.getMonstersFilteredBy(binding.filterInput.getText().toString()).observe(
                 getViewLifecycleOwner(),monsters -> {
                     adapter.clear();
                     adapter.addAll(monsters);
@@ -93,6 +94,15 @@ public class MonsterList extends Fragment {
             //Cargo el otro fragmento con la info del monstruo
             NavHostFragment.findNavController(this).navigate(R.id.action_MonsterList_to_MonsterView, datos);
         });
+
+        binding.emptyButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        binding.filterInput.setText("");
+                    }
+                }
+        );
 
     }
 
