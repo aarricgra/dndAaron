@@ -16,6 +16,9 @@ import java.util.List;
         @Query("select * from monster")
         LiveData<List<Monster>> getMonsters();
 
+        @Query("select * from monster where name like '%' || :key || '%'")
+        LiveData<List<Monster>> getMonstersFilteredBy(String key);
+
         @Insert
         void addMonster(Monster pokemon);
 

@@ -20,47 +20,52 @@ import java.util.concurrent.Executors;
 
 
 public class MonsterViewModel extends AndroidViewModel {
-        private final Application app;
-        private final MonsterDatabase monsterDatabase ;
-        private final MonsterDao monsterDao;
-        private final AbilitiesActionsDatabase actionDatabase;
-        private final AbilitiesActionsDao actionDao;
+    private final Application app;
+    private final MonsterDatabase monsterDatabase;
+    private final MonsterDao monsterDao;
+    private final AbilitiesActionsDatabase actionDatabase;
+    private final AbilitiesActionsDao actionDao;
 
-        public MonsterViewModel(Application application) {
-            super(application);
+    public MonsterViewModel(Application application) {
+        super(application);
 
-            this.app = application;
-            this.monsterDatabase = MonsterDatabase.getDatabase(this.getApplication());
-            this.monsterDao = monsterDatabase.getMonsterDao();
+        this.app = application;
+        this.monsterDatabase = MonsterDatabase.getDatabase(this.getApplication());
+        this.monsterDao = monsterDatabase.getMonsterDao();
 
-            this.actionDatabase = AbilitiesActionsDatabase.getDatabase(this.getApplication());
-            this.actionDao = actionDatabase.getActionDao();
-        }
-
-        public LiveData<List<Monster>> getMonsters() {
-            return monsterDao.getMonsters();
-        }
-        public LiveData<List<AbilitiesActions>> getActionsFrom(String key,String type) {
-            return actionDao.getActionsFrom(key,type);
-        }
-
-        public void refresh(ProgressDialog dialog) {
-            ExecutorService executor = Executors.newSingleThreadExecutor();
-
-            executor.execute(() -> {
-                MonsterAPI api = new MonsterAPI();
-                ArrayList<Monster> pokemonsApi = api.getMonsters();
-
-                this.monsterDao.deleteMonsters();
-                this.monsterDao.addMonsters(pokemonsApi);
-
-                ActionAPI api2 = new ActionAPI();
-                ArrayList<AbilitiesActions> actionsApi = api2.getActions();
-
-                this.actionDao.deleteActions();
-                this.actionDao.addActions(actionsApi);
-                dialog.dismiss();
-            });
-        }
+        this.actionDatabase = AbilitiesActionsDatabase.getDatabase(this.getApplication());
+        this.actionDao = actionDatabase.getActionDao();
     }
+
+    public LiveData<List<Monster>> getMonsters() {
+        return monsterDao.getMonsters();
+    }
+
+    public LiveData<List<Monster>> getMonstersFilteredBy(String key) {
+        return monsterDao.getMonstersFilteredBy(key);
+    }
+
+    public LiveData<List<AbilitiesActions>> getActionsFrom(String key, String type) {
+        return actionDao.getActionsFrom(key, type);
+    }
+
+    public void refresh(ProgressDialog dialog) {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+
+        executor.execute(() -> {
+            MonsterAPI api = new MonsterAPI();
+            ArrayList<Monster> pokemonsApi = api.getMonsters();
+
+            this.monsterDao.deleteMonsters();
+            this.monsterDao.addMonsters(pokemonsApi);
+
+            ActionAPI api2 = new ActionAPI();
+            ArrayList<AbilitiesActions> actionsApi = api2.getActions();
+
+            this.actionDao.deleteActions();
+            this.actionDao.addActions(actionsApi);
+            dialog.dismiss();
+        });
+    }
+}
 
