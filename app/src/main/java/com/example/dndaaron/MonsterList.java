@@ -92,7 +92,12 @@ public class MonsterList extends Fragment {
             datos.putSerializable("monster", monster);
 
             //Cargo el otro fragmento con la info del monstruo
-            NavHostFragment.findNavController(this).navigate(R.id.action_MonsterList_to_MonsterView, datos);
+            if(siDelao()){
+                NavHostFragment.findNavController(this).navigate(R.id.action_monsterView_self, datos);
+            }else {
+                NavHostFragment.findNavController(this).navigate(R.id.action_MonsterList_to_MonsterView, datos);
+            }
+
         });
 
         binding.emptyButton.setOnClickListener(
@@ -133,4 +138,7 @@ public class MonsterList extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    boolean siDelao(){
+        return getResources().getBoolean(R.bool.delao);
+    }
 }

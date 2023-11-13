@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/monsterView">
+
+    <fragment
+        android:id="@+id/monsterView"
+        android:name="com.example.dndaaron.MonsterView"
+        android:label="monster_view"
+        tools:layout="@layout/monster_view" >
+        <action
+            android:id="@+id/action_monsterView_to_monsterList"
+            app:destination="@id/monsterList" />
+        <action
+            android:id="@+id/action_monsterView_self"
+            app:destination="@id/monsterView" />
+    </fragment>
+    <fragment
+        android:id="@+id/monsterList"
+        android:name="com.example.dndaaron.MonsterList"
+        android:label="monster_list"
+        tools:layout="@layout/monster_list" >
+        <action
+            android:id="@+id/action_monsterList_to_monsterView"
+            app:destination="@id/monsterView" />
+    </fragment>
+</navigation>
